@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // State
     const defaultBatteries = [
-        { id: 1, name: "标准电池组", power: 1100, consume: 0.025, selected: true }
+        { id: 1, name: "标准电池组", power: 1100, consume: 0.025, duration: 40, selected: true }
     ];
     let batteries = JSON.parse(localStorage.getItem('batteries')) || defaultBatteries;
 
@@ -29,22 +29,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function addBattery() {
         const nameInput = document.getElementById('newBatteryName');
         const powerInput = document.getElementById('newBatteryPower');
-        const consumeInput = document.getElementById('newBatteryConsume');
+        const durationInput = document.getElementById('newBatteryDuration');
 
         const name = nameInput.value.trim();
         const power = parseFloat(powerInput.value);
-        const consume = parseFloat(consumeInput.value);
+        const duration = parseFloat(durationInput.value);
 
-        if (!name || isNaN(power) || isNaN(consume) || power <= 0 || consume <= 0) {
+        if (!name || isNaN(power) || isNaN(duration) || power <= 0 || duration <= 0) {
             alert('请输入有效的电池参数');
             return;
         }
+
+        const consume = 1 / duration; // Convert duration to rate
 
         batteries.push({
             id: Date.now(),
             name,
             power,
             consume,
+            duration,
             selected: true
         });
 
@@ -54,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear inputs
         nameInput.value = '';
         powerInput.value = '';
-        consumeInput.value = '';
+        durationInput.value = '';
     }
 
     window.removeBattery = function (id) {
@@ -84,6 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
         list.innerHTML = '';
 
         batteries.forEach(battery => {
+            // Backwards compatibility for old data without duration
+            const durationDisplay = battery.duration
+                ? `${battery.duration}s`
+                : `${(1 / battery.consume).toFixed(1)}s`;
+
             const item = document.createElement('div');
             item.className = 'battery-item';
             item.innerHTML = `
@@ -92,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${battery.selected ? 'checked' : ''} 
                         onchange="toggleBattery(${battery.id})">
                     <span class="battery-name">${battery.name}</span>
-                    <span class="battery-stats-mini">P: ${battery.power} | C: ${battery.consume}</span>
+                    <span class="battery-stats-mini">P: ${battery.power} | T: ${durationDisplay}</span>
                 </div>
                 <button class="btn-delete" onclick="removeBattery(${battery.id})" title="删除">×</button>
             `;
