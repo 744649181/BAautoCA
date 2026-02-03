@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ 挂机电力平衡分流器设计器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>⚡ 挂机电力平衡分流器设计器</h1>
+            <p class="subtitle">自动计算最优分流器网络，满足电力需求</p>
+        </header>
+
+        <main class="main-content">
+            <section class="input-section glass-card">
+                <h2>📊 输入参数</h2>
+                <div class="battery-management-section">
+                    <h3>🔋 电池库管理</h3>
+                    <div class="add-battery-form">
+                        <div class="form-row">
+                            <input type="text" id="newBatteryName" placeholder="电池名称(如:普通电池)" class="input-small">
+                            <input type="number" id="newBatteryPower" placeholder="满载功率(P)" step="1"
+                                class="input-small">
+                            <input type="number" id="newBatteryConsume" placeholder="消耗速率(C)" step="0.001"
+                                class="input-small">
+                            <button type="button" id="btnAddBattery" class="btn-small">➕ 添加</button>
+                        </div>
+                    </div>
+                    <div id="batteryList" class="battery-list">
+                        <!-- Battery items will be populated here -->
+                    </div>
+                </div>
+                <hr class="separator">
+                <form id="calculatorForm">
+                    <div class="form-group">
+                        <label for="targetPower">目标功率 (D)</label>
+                        <input type="number" id="targetPower" value="1990" step="1" required>
+                        <span class="hint">系统所需总功率</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="basePower">基地发电 (P_base)</label>
+                        <input type="number" id="basePower" value="200" step="1" required>
+                        <span class="hint">基地自身发电功率</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="supplyRate">燃料供应速率 (R)</label>
+                        <input type="number" id="supplyRate" value="0.5" step="0.001" required>
+                        <span class="hint">个/秒（如2秒/个则填0.5）</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="maxDepth">搜索深度</label>
+                        <input type="number" id="maxDepth" value="5" min="1" max="8" required>
+                        <span class="hint">分流器网络最大层数（1-8）</span>
+                    </div>
+                    <button type="submit" class="btn-calculate">
+                        <span class="btn-icon">⚙️</span>
+                        计算最优方案
+                    </button>
+                </form>
+            </section>
+
+            <section class="result-section glass-card" id="resultSection" style="display: none;">
+                <h2>📈 计算结果</h2>
+                <div id="solutionTabs" class="solution-tabs" style="display: none;">
+                    <!-- Tabs will be injected here -->
+                </div>
+                <div class="result-summary" id="resultSummary"></div>
+                <div class="battery-details" id="batteryDetails"></div>
+            </section>
+
+            <section class="network-section glass-card" id="networkSection" style="display: none;">
+                <h2>🔀 分流器网络结构</h2>
+                <div class="network-container">
+                    <canvas id="networkCanvas" width="800" height="500"></canvas>
+                </div>
+                <div class="network-text" id="networkText"></div>
+            </section>
+
+            <section class="info-section glass-card">
+                <h2>ℹ️ 使用说明</h2>
+                <div class="info-content">
+                    <p><strong>算法原理：</strong>分流器只能实现均分（2出口或3出口），因此可表示的比例形如 <code>(1/2)^a × (1/3)^b</code>。</p>
+                    <p><strong>自动阻塞：</strong>当电池组缓存满（上限50）时，分流器出口自动阻塞，燃料转向其他出口，实现自平衡。</p>
+                    <p><strong>回流设计：</strong>未使用的燃料通过回流线送回主带起点，形成循环无浪费。</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>挂机电力平衡分流器设计器 v1.0</p>
+        </footer>
+    </div>
+
+    <script src="splitter-algorithm.js"></script>
+    <script src="visualizer.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

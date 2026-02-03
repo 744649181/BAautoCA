@@ -1,0 +1,565 @@
+/* ========================================
+   Power Balance Splitter Calculator Styles
+   基于《碧蓝航线》风格配色
+   ======================================== */
+
+:root {
+    --bg-primary: #0d0d12;
+    --bg-secondary: #1a1a24;
+    --bg-card: rgba(20, 20, 30, 0.85);
+    --text-primary: #f0f0f5;
+    --text-secondary: #9090a0;
+    --accent-primary: #ffe066;
+    /* 黄色主色 */
+    --accent-secondary: #00d4ff;
+    /* 青蓝色 */
+    --accent-glow: rgba(255, 224, 102, 0.3);
+    --accent-cyan-glow: rgba(0, 212, 255, 0.3);
+    --success: #00d4ff;
+    --warning: #ffe066;
+    --error: #ff6b6b;
+    --border-color: rgba(255, 224, 102, 0.15);
+    --glass-blur: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background: var(--bg-primary);
+    background-image: url('./img/bg_m.529c4e62.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Background overlay with gradient */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(255, 224, 102, 0.08) 0%, transparent 50%),
+        rgba(13, 13, 18, 0.7);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 40px var(--accent-glow);
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Glass Card */
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Main Content Layout */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input-section {
+    grid-column: 1;
+}
+
+.result-section {
+    grid-column: 2;
+}
+
+.network-section {
+    grid-column: 1 / -1;
+}
+
+.info-section {
+    grid-column: 1 / -1;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group .hint {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Button */
+.btn-calculate {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    background: linear-gradient(135deg, var(--accent-primary), #ffcc00);
+    border: none;
+    border-radius: 10px;
+    color: #1a1a24;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-calculate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px var(--accent-glow);
+}
+
+.btn-calculate:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 1.3rem;
+}
+
+/* Result Section */
+.result-summary {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.result-summary .stat {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.result-summary .stat:last-child {
+    border-bottom: none;
+}
+
+.result-summary .stat-label {
+    color: var(--text-secondary);
+}
+
+.result-summary .stat-value {
+    font-weight: 600;
+    color: var(--success);
+}
+
+.result-summary .stat-value.warning {
+    color: var(--warning);
+}
+
+.result-summary .stat-value.error {
+    color: var(--error);
+}
+
+/* Battery Details */
+.battery-details {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.battery-card {
+    background: rgba(255, 224, 102, 0.08);
+    border: 1px solid rgba(255, 224, 102, 0.25);
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.battery-card .battery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.battery-card .battery-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.battery-card .battery-ratio {
+    background: var(--accent-primary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.battery-card .battery-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.battery-card .battery-stats span {
+    color: var(--text-primary);
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-top: 0.5rem;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+/* Network Section */
+.network-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 1rem;
+    overflow: auto;
+    margin-bottom: 1rem;
+}
+
+#networkCanvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.network-text {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: 'Consolas', 'Microsoft YaHei', monospace;
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    color: var(--text-secondary);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Info Section */
+.info-content {
+    color: var(--text-secondary);
+}
+
+.info-content p {
+    margin-bottom: 0.8rem;
+}
+
+.info-content code {
+    background: rgba(0, 212, 255, 0.15);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: var(--accent-secondary);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-section,
+.network-section {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Battery Management */
+.battery-management-section {
+    margin-bottom: 1.5rem;
+}
+
+.battery-management-section h3 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.input-small {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    background: var(--accent-primary);
+    border: none;
+    border-radius: 6px;
+    color: var(--bg-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-small:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.battery-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.battery-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.battery-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color);
+}
+
+.battery-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.battery-checkbox {
+    margin-right: 0.5rem;
+    accent-color: var(--accent-primary);
+}
+
+.battery-name {
+    font-weight: 600;
+    color: var(--accent-secondary);
+}
+
+.battery-stats-mini {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.btn-delete {
+    background: transparent;
+    border: none;
+    color: var(--error);
+    cursor: pointer;
+    font-size: 1.1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.btn-delete:hover {
+    opacity: 1;
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+}
+
+/* Solution Tabs */
+.solution-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.solution-tab {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    min-width: 140px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.solution-tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.solution-tab.active {
+    background: rgba(0, 212, 255, 0.15);
+    border-color: var(--accent-secondary);
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+}
+
+.solution-tab .tab-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.solution-tab .tab-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: block;
+}
+
+.solution-tab .tab-meta {
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--accent-primary);
+}
