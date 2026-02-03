@@ -56,5 +56,3 @@
 *   JavaScript (ES6+)
 *   No external frameworks (Pure Vanilla JS)
 
----
-*Created by Antigravity*
